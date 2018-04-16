@@ -12,7 +12,7 @@ use std::sync::{Mutex, Arc};
 
 fn main() {
     let now = Instant::now();
-    estimate_pi(8_000_000, 8);
+    estimate_pi(800_000, 8);
     let time_taken = now.elapsed();
     println!("Time taken in seconds: {}.{}", time_taken.as_secs(), time_taken.subsec_nanos());
 }
@@ -39,24 +39,20 @@ fn compute_on_multiple_threads(total_count: i32, num_of_threads: i32, arc_tx: Ar
     for _i in 0..num_of_threads {
         let arc_tx = Arc::clone(&arc_tx);
         thread::spawn(move || {
-            let in_circle_count = get_in_circle_count(total_count / num_of_threads);
-            let tx = arc_tx.lock().unwrap();
-            tx.send(in_circle_count).unwrap();
+            let mut rng = rand::thread_rng();
+            let loop_count = total_count / num_of_threads;
+
+            for _i in 0..loop_count {
+                let a = rng.gen_range(-1f64, 1f64);
+                let b = rng.gen_range(-1f64, 1f64);
+                let x = (a * a) + (b * b);
+                if x <= (1.0 as f64) {
+                    let tx = arc_tx.lock().unwrap();
+                    tx.send(1).expect("Updating atomic reference counter failed");
+                }
+            }
         });
     }
-}
-
-fn get_in_circle_count(loop_count: i32) -> i32 {
-    let mut rng = rand::thread_rng();
-
-    (0..loop_count)
-        .map(|_| {
-            let a = rng.gen_range(-1f64, 1f64);
-            let b = rng.gen_range(-1f64, 1f64);
-            (a * a) + (b * b)
-        })
-        .filter(|x| x <= &(1.0 as f64))
-        .count() as i32
 }
 
 #[cfg(test)]
