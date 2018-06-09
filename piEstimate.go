@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"math/rand"
 	"time"
+
+	"./go_utils"
 )
 
 func main() {
@@ -33,7 +35,7 @@ func computeInSingleThread(totalPoints int, ch chan int) {
 	for totalPoints > 0 {
 		x := rand.Float64()*2.0 - 1
 		y := rand.Float64()*2.0 - 1
-		if x*x+y*y < 1.0 {
+		if go_utils.IsPointWithinCircle(x, y) {
 			pointsInCircle++
 		}
 		totalPoints--

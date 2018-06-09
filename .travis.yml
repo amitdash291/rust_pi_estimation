@@ -1,10 +1,20 @@
-language: rust
-
-rust:
-  - nightly
-
-cache: cargo
-
-script:
-  - cargo build --verbose --all
-  - cargo test --verbose --all
+matrix:
+  include:
+    - language: rust
+      rust:
+        - nightly
+      cache: cargo
+      script:
+        - cargo build --verbose --all
+        - cargo test --verbose --all
+    
+    - language: go
+      go:
+        - 1.10.x
+      install:
+        - curl https://glide.sh/get | sh
+        - glide install
+      script:
+        - go test -race -coverprofile=coverage.txt -covermode=atomic
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
