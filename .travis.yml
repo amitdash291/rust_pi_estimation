@@ -1,16 +1,14 @@
 matrix:
   include:
     - language: rust
-      rust:
-        - nightly
+      rust: nightly
       cache: cargo
       script:
         - cargo build --verbose --all
         - cargo test --verbose --all
     
     - language: go
-      go:
-        - 1.10.x
+      go: 1.10.x
       install:
         - curl https://glide.sh/get | sh
         - glide install
