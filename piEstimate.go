@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"time"
 
-	"./go_utils"
+	"github.com/amitdash291/rust_pi_estimation/go_utils"
 )
 
 func main() {

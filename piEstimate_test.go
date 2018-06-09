@@ -3,7 +3,7 @@ package main_test
 import (
 	"testing"
 
-	"./go_utils"
+	"github.com/amitdash291/rust_pi_estimation/go_utils"
 	"github.com/stretchr/testify/assert"
 )
 
