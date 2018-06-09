@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/amitdash291/rust_pi_estimation.svg?branch=master)](https://travis-ci.org/amitdash291/rust_pi_estimation)
 [![Go Report Card](https://goreportcard.com/badge/github.com/amitdash291/rust_pi_estimation)](https://goreportcard.com/report/github.com/amitdash291/rust_pi_estimation)
+[![GoDoc](https://godoc.org/github.com/amitdash291/rust_pi_estimation?status.svg)](https://godoc.org/github.com/amitdash291/rust_pi_estimation)
 
 **How to make things parallel**:
 - Spawn a thread and let it do `1:1 threads`
